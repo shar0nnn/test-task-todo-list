@@ -1,0 +1,221 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/login:
+    post:
+      summary: 'Authenticate user and return API token.'
+      operationId: authenticateUserAndReturnAPIToken
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: oberbrunner.kobe@example.net
+                  nullable: false
+                password:
+                  type: string
+                  description: ''
+                  example: '~c,~>|1\NN_6'
+                  nullable: false
+              required:
+                - email
+                - password
+      security: []
+  /api/register:
+    post:
+      summary: 'Register a new user and return user data.'
+      operationId: registerANewUserAndReturnUserData
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: z
+                  nullable: false
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
+                  example: emmalee.damore@example.net
+                  nullable: false
+                password:
+                  type: string
+                  description: 'Must be at least 5 characters. Must not be greater than 255 characters.'
+                  example: '`.AC;Z'
+                  nullable: false
+                password_confirmation:
+                  type: string
+                  description: 'Your confirmed password'
+                  example: null
+                  nullable: false
+              required:
+                - name
+                - email
+                - password
+                - password_confirmation
+      security: []
+  /api/tasks:
+    get:
+      summary: 'Display a listing of the tasks.'
+      operationId: displayAListingOfTheTasks
+      description: ''
+      parameters:
+        -
+          in: query
+          name: 'filters[is_completed]'
+          description: 'Filter by status (completed or not completed).'
+          example: 0
+          required: false
+          schema:
+            type: integer
+            description: 'Filter by status (completed or not completed).'
+            example: 0
+            nullable: false
+        -
+          in: query
+          name: 'filters[user_id]'
+          description: 'Filter by creator'
+          example: null
+          required: false
+          schema:
+            type: integer
+            description: 'Filter by creator'
+            example: null
+            nullable: false
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - 'Task management'
+    post:
+      summary: 'Store a newly created task in storage.'
+      operationId: storeANewlyCreatedTaskInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Task management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must not be greater than 100 characters.'
+                  example: null
+                  nullable: false
+                description:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: null
+                  nullable: false
+                is_completed:
+                  type: boolean
+                  description: ''
+                  example: true
+                  nullable: false
+              required:
+                - name
+                - description
+  '/api/tasks/{id}':
+    patch:
+      summary: 'Update the task in storage.'
+      operationId: updateTheTaskInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Task management'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must not be greater than 100 characters.'
+                  example: null
+                  nullable: false
+                description:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: null
+                  nullable: false
+                is_completed:
+                  type: boolean
+                  description: ''
+                  example: true
+                  nullable: false
+    delete:
+      summary: 'Remove the task from storage.'
+      operationId: removeTheTaskFromStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Task management'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the task to update'
+        example: null
+        required: true
+        schema:
+          type: string
+tags:
+  -
+    name: Endpoints
+    description: ''
+  -
+    name: 'Task management'
+    description: "\nAPIs for managing tasks"
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'You can retrieve your token by visiting api/login endpoint after registration.'
+security:
+  -
+    default: []
