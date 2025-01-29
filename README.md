@@ -54,7 +54,7 @@ password => john123</i>
 
 <b>8. The list of endpoints for testing functionality</b>
 
-<i>http://localhost - main URL to display tasks table
+<i>http://localhost - main URL to display tasks table (you need to pass your bearer token into "headers" constant in resources/js/app.js file)
 
 http://localhost/docs - API documentation
 

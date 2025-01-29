@@ -2,7 +2,7 @@ import './bootstrap';
 import axios from "axios";
 
 const headers = {
-    "Authorization": "Bearer 1|N9O6sn343EWnEJ4dbGJpv0pDLMGMBBzgunjQF5O480ec66a4", // pass your bearer token
+    "Authorization": "Bearer ...", // pass your bearer token here instead of ellipsis
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
